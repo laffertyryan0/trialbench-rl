@@ -1,0 +1,18 @@
+# Downloaded TrialBench data (large, re-downloadable from Zenodo — see loader.py)
+data/
+data_v2/
+
+# Training run artifacts (checkpoints metadata, wandb cache, metrics) — outputs, not source
+logs/
+
+# Live run output
+train_run.log
+*.log
+
+# Python
+__pycache__/
+*.pyc
+
+# Venv (project uses the shared /home/ubuntu/.venv, not a local one)
+venv/
+.venv/
