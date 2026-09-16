@@ -129,3 +129,5 @@ want to evaluate (printed to stdout/logs during training as `Saved checkpoints: 
 Checkpoints live on Tinker's infrastructure (`tinker://.../sampler_weights/final`); export to
 HuggingFace format via `tinker_cookbook.weights.build_hf_model` if you need local/portable
 weights.
+
+Claude Code was used to support this project. 
