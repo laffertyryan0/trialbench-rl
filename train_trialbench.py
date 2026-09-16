@@ -87,7 +87,12 @@ def build_config(*, smoke_test: bool, tasks: list[str], log_path: str) -> train.
         sources=sources,
         weights=weights,
         groups_per_batch=batch_size * len(tasks) if not smoke_test else batch_size,
-        total_batches=2 if smoke_test else 50,
+        # 100, not 50: extending the completed 50-batch run. Schedule slots are
+        # resolved by (seed, batch_index) independent of total_batches, so
+        # batches 50-99 are genuinely new data, not a repeat of 0-49 — and
+        # resume (behavior_if_exists="resume" below) picks up at batch 50
+        # automatically via the last checkpoint.
+        total_batches=2 if smoke_test else 150,
     )
 
     return train.Config(
