@@ -34,7 +34,8 @@ pulling trials directly from the live ClinicalTrials.gov API whose **results wer
 after Qwen3.6's April 2026 release** — data that structurally could not have been in its training
 set.
 
-Base model (untrained) vs. the batch-150 checkpoint, same live trials:
+Base model (untrained) vs. the batch-150 checkpoint, same live trials (continuous tasks, graded
+log-space reward):
 
 | Task | Base | Trained | Delta |
 |---|---|---|---|
@@ -43,10 +44,21 @@ Base model (untrained) vs. the batch-150 checkpoint, same live trials:
 | `dropout_rate` | 0.029 | 0.604 | **+0.575** |
 
 Large, consistent gains on data the model cannot have memorized — this is the strongest evidence
-in this repo that RL training produced real inference ability, not recall. (Binary-task F1 on
-this same live set is in `live_eval.py`'s output; see `notes/` if you re-run it for current
-numbers — this eval doesn't cover `outcome`/`failure_reason`/`dose_cls`, which don't map cleanly
-to fields available on ClinicalTrials.gov.)
+in this repo that RL training produced real inference ability, not recall.
+
+F1 on the binary framing of the same tasks, same live trials, compared against F1 on
+TrialBench's own held-out test set (batch 150 checkpoint, both columns):
+
+| Task | Live-data F1 | TrialBench-test F1 |
+|---|---|---|
+| `mortality_yn` | 0.696 | 0.720 |
+| `adverse_yn` | 0.857 | 0.808 |
+| `dropout_yn` | 0.828 | 0.886 |
+
+Performance is broadly comparable across both — the model isn't just doing well on TrialBench's
+curated test split, it holds up on completely fresh trials it structurally cannot have seen.
+(This eval doesn't cover `outcome`/`failure_reason`/`dose_cls`, which don't map cleanly to fields
+available on ClinicalTrials.gov — see `live_data.py`'s docstring for why.)
 
 ## Known issues found and fixed along the way
 
