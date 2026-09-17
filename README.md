@@ -77,7 +77,7 @@ available on ClinicalTrials.gov — see `live_data.py`'s docstring for why.)
   lookup mid-rollout returning a structurally different compound than the stated drug name) — a
   real data-quality issue in the benchmark, likely contributing to that task's weak scores.
 
-## Known limitations (be upfront about these)
+## Known limitations
 
 - **Memorization is plausible and not fully ruled out** for tasks framed in the past tense
   ("did this trial succeed") on trials the model may have seen during pretraining. The
